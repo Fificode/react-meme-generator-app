@@ -1,12 +1,21 @@
 import React from 'react';
 import MemesData from '../memesData';
 const Meme = () => {
-  const [memeImage, setMemeImage] = React.useState("");
-let url;
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImage: "http://i.imgflip.com/1bij.jpg"
+  });
+  const [allMemeImages, setAllMemeImages] = React.useState(MemesData);
+
 const handleClick = () => {
-const memesArray = MemesData.data.memes;
+const memesArray = allMemeImages.data.memes;
 const randomNumber = Math.floor(Math.random() * memesArray.length);
-setMemeImage((memesArray[randomNumber].url));
+const url = memesArray[randomNumber].url;
+setMeme(prevMeme => ({
+  ...prevMeme,
+  randomImage : url}
+));
  
 console.log(url);
 };
@@ -22,7 +31,7 @@ console.log(url);
         </div>
       </main>
       <div className='flex justify-center items-center'>
-        <img src={memeImage} alt="Meme" className='my-[10px] max-w-[100%]' />
+        <img src={meme.randomImage} alt="Meme" className='my-[10px] max-w-[100%]' />
         </div>
     </div>
   )
